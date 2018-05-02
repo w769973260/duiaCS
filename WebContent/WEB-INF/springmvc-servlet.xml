@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+	default-autowire="byName" default-lazy-init="false">
+
+	<!-- 自动搜索@Controller标注的类 -->
+	<context:component-scan base-package="register.com.controller" />
+
+	<!-- 扫描AOP exception -->
+	<context:component-scan base-package="common.exception" />
+
+	<!-- 开启aop注解配置 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
+	<mvc:resources location="jsp" mapping="/jsp/**" />
+	<mvc:resources location="js" mapping="/js/**" />
+
+	<!-- 需要Provider，这里使用hibernate-validator -->
+	<mvc:annotation-driven />
+
+	<mvc:default-servlet-handler />
+
+	<!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:order="100" p:viewClass="org.springframework.web.servlet.view.JstlView"
+		p:prefix="jsp/" p:suffix=".jsp" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/auth/*" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<mvc:exclude-mapping path="/ueditor/**" />
+			<bean class="com.duia.common.interceptor.PermissionInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/auth/*" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<bean class="com.duia.common.interceptor.FormTokenInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" /> <!-- 默认编码 (ISO-8859-1) -->
+		<property name="maxInMemorySize" value="10240" /> <!-- 最大内存大小 (10240) -->
+		<property name="uploadTempDir" value="/upload/" /> <!-- 上传后的目录名 (WebUtils#TEMP_DIR_CONTEXT_ATTRIBUTE) -->
+		<property name="maxUploadSize" value="-1" /> <!-- 最大文件大小，-1为无限止(-1) -->
+	</bean>
+
+	<!-- Mapping exception to the handler view -->
+	<!-- <bean id="exceptionResolver" class="com.zthl.common.exception.CustomSimpleMappingExceptionResolver"> 
+		<property name="defaultErrorView" value="/commons/error" /> <property name="exceptionMappings"> 
+		<props> <prop key="java.lang.Exception">/commons/error</prop> <prop key="com.zthl.common.exception.BusinessException">/commons/error</prop> 
+		</props> </property> </bean> <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> 
+		<property name="basenames"> <list><value>com.zthl.model.resource.ValidationMessages_zh_CN.properties</value></list> 
+		</property> </bean> -->
+</beans>

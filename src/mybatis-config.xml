@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="RegisterModel" type="register.com.model.RegisterModel" />
+		<!-- <typeAlias alias="AddModel" type="register.com.model.AddModel"/> -->
+	</typeAliases>
+	
+	<!-- <plugins>
+		指定数据库分页方言Dialect, 其它方言:OracleDialect,SQLServerDialect,SybaseDialect,DB2Dialect,PostgreSQLDialect,MySQLDialect,DerbyDialect,HSQLDialect
+		<plugin interceptor="com.zthl.common.mybatis3.plugin.OffsetLimitInterceptor">
+			<property name="dialectClass" value="com.zthl.common.mybatis3.dialect.MySQLDialect"/>
+		</plugin>
+	</plugins> -->
+	
+</configuration>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>duiaCS</display-name>
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>duiaCS</param-value>
+	</context-param>
+	
+	
+	<!-- 定义当前项目session存储时常 -->
+	<session-config>
+	<!-- 单位为分钟 -->
+		<session-timeout>20</session-timeout>
+	</session-config>
+	
+	<!-- 指定项目首页 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	
+	<!-- 异常处理页面路径 -->
+<!-- 	<error-page>
+		<error-code>500</error-code>
+		<location>/commons/error.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/commons/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/commons/403.jsp</location>
+	</error-page>
+	 -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.ico</url-pattern>
+	</servlet-mapping>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/*.xml</param-value>
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+<!-- 拦截器 -->
+	<!-- <filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<servlet-name>springmvc</servlet-name>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+<!-- 	<servlet>
+		<servlet-name>ProxoolServlet</servlet-name>
+		<servlet-class>org.logicalcobwebs.proxool.ProxoolServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet> -->
+	<!-- <filter>
+		<filter-name>FilterSession</filter-name>
+		<filter-class>filter.FilterSession</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>FilterSession</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+</web-app>

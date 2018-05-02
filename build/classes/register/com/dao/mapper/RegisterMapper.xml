@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="register.com.dao.RegisterDao">
+
+
+
+	<select id="selectAll" resultType="java.lang.Integer">
+		SELECT
+		*
+		FROM users
+		WHERE
+		mobile=#{mobile}
+	</select>
+	
+	<insert id="insert" parameterType="java.lang.Integer">
+		insert into users(
+		id,
+		username,
+		mobile,
+		email,
+		password,
+		usertype,
+		regist_time,
+		state,
+		auth_sign,
+		auth_code,
+		auth_sendtime,
+		union_name,
+		parter,
+		pic_url,
+		truename,
+		self_desc,
+		personal_page,
+		headline,
+		interests,
+		verify_status,
+		user_address,
+		origin,
+		uuid,
+		keyPromotion,
+		sourcePromotion,
+		mPromotion,
+		sendEmailDate,
+		sex,
+		qq_num,
+		sign,
+		message_set,
+		note_set,
+		money,
+		medal,
+		continue_sign_day,
+		phone_id_code,
+		login_type,
+		vip,
+		pic_url_mid,
+		pic_url_min,
+		profession,
+		token,
+		birthday,
+		tiku_app_bg,
+		agreement_type,
+		register_channel,
+		mobile_confirm
+		)values(
+		#{id,jdbcType=INTEGER},
+		#{username,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{usertype,jdbcType=INTEGER},
+		#{regist_time,jdbcType=TIMESTAMP},
+		#{state,jdbcType=INTEGER},
+		#{auth_sign,jdbcType=INTEGER},
+		#{auth_code,jdbcType=VARCHAR},
+		#{auth_sendtime,jdbcType=DATE},
+		#{union_name,jdbcType=VARCHAR},
+		#{parter,jdbcType=VARCHAR},
+		#{pic_url,jdbcType=VARCHAR},
+		#{truename,jdbcType=VARCHAR},
+		#{self_desc,jdbcType=DATE},
+		#{personal_page,jdbcType=VARCHAR},
+		#{headline,jdbcType=VARCHAR},
+		#{interests,jdbcType=VARCHAR},
+		#{verify_status,jdbcType=INTEGER},
+		#{user_address,jdbcType=VARCHAR},
+		#{origin,jdbcType=VARCHAR},
+		#{uuid,jdbcType=VARCHAR},
+		#{keyPromotion,jdbcType=VARCHAR},
+		#{sourcePromotion,jdbcType=VARCHAR},
+		#{mPromotion,jdbcType=VARCHAR},
+		#{sendEmailDate,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR},
+		#{qq_num,jdbcType=VARCHAR},
+		#{sign,jdbcType=VARCHAR},
+		#{message_set,jdbcType=INTEGER},
+		#{note_set,jdbcType=INTEGER},
+		#{money,jdbcType=INTEGER},
+		#{medal,jdbcType=VARCHAR},
+		#{continue_sign_day,jdbcType=INTEGER},
+		#{phone_id_code,jdbcType=VARCHAR},
+		#{login_type,jdbcType=VARCHAR},
+		#{vip,jdbcType=INTEGER},
+		#{pic_url_mid,jdbcType=VARCHAR},
+		#{pic_url_min,jdbcType=VARCHAR},
+		#{profession,jdbcType=VARCHAR},
+		#{token,jdbcType=VARCHAR},
+		#{birthday,jdbcType=VARCHAR},
+		#{tiku_app_bg,jdbcType=VARCHAR},
+		#{agreement_type,jdbcType=INTEGER},
+		#{register_channel,jdbcType=INTEGER},
+		#{mobile_confirm,jdbcType=INTEGER}
+		)
+	</insert>
+
+
+
+
+	<update id="update" parameterType="RegisterModel">
+		UPDATE users
+		SET
+		username=#{username},
+		mobile=#{mobile},
+		emai=#{emai},
+		password=#{password}
+		where id=#{id}
+	</update>
+</mapper>
